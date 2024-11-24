@@ -1,5 +1,6 @@
 package com.example.hotel.service;
 
+import com.example.hotel.model.Booking;
 import com.example.hotel.model.Dates;
 import com.example.hotel.model.Employee;
 import com.example.hotel.repository.DatesRepository;
@@ -7,6 +8,7 @@ import com.example.hotel.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 import java.util.List;
 @Service
@@ -38,8 +40,14 @@ public class EmployeeService {
 
     // Lấy tất cả nhân viên
     public List<Employee> findAllEmployees() {
+
         return emloyeeRepository.findAll();
     }
+    public List<Dates> findAllDataes() {
+
+        return datesRepository.findAll();
+    }
+
     // Ghi nhận giờ làm việc của nhân viên
     public void trackAttendance(Long employeeId, LocalDate date, int workingHours) {
         Employee employee = emloyeeRepository.findById(employeeId).orElseThrow();
@@ -51,21 +59,22 @@ public class EmployeeService {
         datesRepository.save(dates);
     }
 
-    // Tính lương của nhân viên
-//    public double calculateSalary(Long employeeId) {
-//        Employee employee = employeeRepository.findById(employeeId).orElseThrow();
-//        List<Attendance> attendances = employee.getAttendanceRecords();
-//        double totalWorkingHours = 0;
-//
-//        for (Attendance attendance : attendances) {
-//            totalWorkingHours += attendance.getWorkingHours();
-//        }
-//
-//        // Giả sử lương mỗi giờ là 100000
-//        double salary = totalWorkingHours * 100000;
-//        employee.setSalary(salary);
-//        employeeRepository.save(employee);
-//        return salary;
-//    }
+
+//     Tính lương của nhân viên
+    public double calculateSalary(Long employeeId) {
+        Employee employee = emloyeeRepository.findById(employeeId).orElseThrow();
+        List<Dates> attendances = employee.getAttendanceRecords();
+        double totalWorkingHours = 0;
+
+        for (Dates attendance : attendances) {
+            totalWorkingHours += attendance.getWorkingHours();
+        }
+
+        // Giả sử lương mỗi giờ là 100000
+        double salary = totalWorkingHours * 100000;
+        employee.setSalary(salary);
+        emloyeeRepository.save(employee);
+        return salary;
+    }
 
 }

@@ -51,6 +51,7 @@
       <th>Ngày trả phòng</th>
       <th>Loại phòng</th>
       <th>Số người đăng ký</th>
+      <th>Tổng tiền thuê (ĐV: Triệu đồng)</th>
       <th>Hủy đặt</th>
     </tr>
     <tr th:each="booking : ${bookings}">
@@ -60,6 +61,7 @@
       <td th:text="${booking.checkOutDate}"></td>
       <td th:text="${booking.roomType}"></td> <!-- Loại phòng -->
       <td th:text="${booking.numberOfGuests}"></td>
+      <td th:text="${booking.price}"></td>
       <td>
         <form th:action="@{/booking/cancel/{id}(id=${booking.id})}" method="post">
           <button type="submit" class="btn btn-danger btn-sm">Hủy</button>

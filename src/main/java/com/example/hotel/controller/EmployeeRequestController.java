@@ -1,7 +1,10 @@
 package com.example.hotel.controller;
 
+import com.example.hotel.model.Booking;
+import com.example.hotel.model.Dates;
 import com.example.hotel.model.Employee;
 import com.example.hotel.service.EmployeeService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -62,6 +65,8 @@ public class EmployeeRequestController {
     @PostMapping("/attendance/{id}")
     public String trackAttendance(@PathVariable Long id, @RequestParam LocalDate date, @RequestParam int workingHours, RedirectAttributes redirectAttributes) {
         employeeService.trackAttendance(id, date, workingHours);
+        // Tính lương nhân viên
+        double salary = employeeService.calculateSalary(id);
         // Thêm thông báo vào FlashAttributes
         redirectAttributes.addFlashAttribute("message", "Chấm công thành công!");
         return "redirect:/employee/all";

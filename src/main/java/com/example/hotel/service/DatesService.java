@@ -1,9 +1,12 @@
 package com.example.hotel.service;
 
 import com.example.hotel.model.Dates;
+import com.example.hotel.model.Employee;
 import com.example.hotel.repository.DatesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -16,6 +19,8 @@ public class DatesService {
 
     // Phương thức lưu chấm công
     public Dates save(Dates dates) {
+
         return datesRepository.save(dates);  // Sử dụng repository để lưu đối tượng Dates
     }
+
 }

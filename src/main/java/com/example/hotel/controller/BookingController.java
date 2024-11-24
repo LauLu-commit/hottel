@@ -48,7 +48,25 @@ public class BookingController {
             model.addAttribute("soldOutMessage", "Loại phòng này đã hết. Vui lòng chọn loại phòng khác.");
             return "booking-failed"; // Tên trang hiển thị thông báo lỗi, ví dụ: booking-failed.html
         }
+        // Tính giá phòng
+        double roomPricePerNight = 0;
+        switch (roomType) {
+            case "DELUXE":
+                roomPricePerNight = 11.5; // Giá phòng DELUXE
+                break;
+            case "COUPLE":
+                roomPricePerNight = 9.0; // Giá phòng COUPLE
+                break;
+            case "FAMILY":
+                roomPricePerNight = 7.0; // Giá phòng FAMILY
+                break;
+        }
 
+        // Tính số ngày ở
+        long daysBetween = java.time.temporal.ChronoUnit.DAYS.between(LocalDate.parse(checkInDate), LocalDate.parse(checkOutDate));
+
+        // Tính tổng giá phòng
+        double totalPrice = roomPricePerNight * daysBetween; // Giá phòng x Số ngày
         // Tiếp tục xử lý đặt phòng
         Booking booking = new Booking();
         booking.setUsername(username);
@@ -56,7 +74,7 @@ public class BookingController {
         booking.setCheckOutDate(LocalDate.parse(checkOutDate));
         booking.setRoomType(roomType);  // Lưu trữ tên loại phòng
         booking.setNumberOfGuests(guests);
-
+        booking.setPrice(totalPrice);
         bookingService.saveBooking(booking);
         return "redirect:/";
     }

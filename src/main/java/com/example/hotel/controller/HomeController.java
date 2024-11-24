@@ -2,10 +2,12 @@ package com.example.hotel.controller;
 
 import com.example.hotel.model.Booking;
 import com.example.hotel.service.BookingService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -66,5 +68,7 @@ public class HomeController {
         }
         return "redirect:/"; // Nếu không phải ADMIN, chuyển hướng về trang chính
     }
+    //Tạo một API trong Controller để trả về danh sách đơn hàng theo tháng
+
 
 }
