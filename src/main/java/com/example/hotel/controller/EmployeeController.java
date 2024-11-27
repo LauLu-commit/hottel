@@ -59,7 +59,7 @@ public class EmployeeController {
         // Tính tổng doanh thu tháng
         double totalRevenuemonth = bookingRepository.calculateTotalRevenue(startOfMonth, endOfMonth);
         //Tổng doanh thu năm
-        double totalRevenueyear = bookingRepository.calculateTotalRevenue(startOfMonth, endOfMonth);
+        double totalRevenueyear = bookingRepository.calculateTotalRevenue(startOfYear, endOfYear);
 
         // Đưa thông tin tổng doanh thu và khoảng thời gian vào model để hiển thị trên view
         model.addAttribute("totalRevenue", totalRevenue);
@@ -110,64 +110,5 @@ public class EmployeeController {
     private LocalDate getEndOfCurrentYear() {
         LocalDate today = LocalDate.now();
         return today.withDayOfYear(today.lengthOfYear()); // Ngày cuối của năm
-    }
-    // Xử lý lịch sử tuần
-    @GetMapping("/admin/finaces/week")
-    public String findWeeklyRevenue1(Model model) {
-        // Lấy ngày bắt đầu và ngày kết thúc của tuần hiện tại
-        LocalDate startOfWeek = getStartOfCurrentWeek();
-        LocalDate endOfWeek = getEndOfCurrentWeek();
-
-        // Lấy danh sách các đơn đặt phòng trong tuần này
-        List<Booking> bookings = bookingRepository.findByCheckInDateBetween(startOfWeek, endOfWeek);
-        double totalRevenue = bookingRepository.calculateTotalRevenue(startOfWeek, endOfWeek);
-        // Thêm dữ liệu vào model
-        model.addAttribute("totalRevenue", totalRevenue);
-        model.addAttribute("startDate", startOfWeek);
-        model.addAttribute("endDate", endOfWeek);
-        model.addAttribute("bookings", bookings);
-
-        return "admin-finaces"; // Trả về view
-    }
-
-    // Lịch sử tháng
-    @GetMapping("/admin/finaces/month")
-    public String findMonthlyRevenue(Model model) {
-        // Lấy ngày bắt đầu và ngày kết thúc của tháng hiện tại
-        LocalDate startOfMonth = getStartOfCurrentMonth();
-        LocalDate endOfMonth = getEndOfCurrentMonth();
-
-        // Lấy danh sách các đơn đặt phòng trong tháng này
-        double totalRevenue = bookingRepository.calculateTotalRevenue(startOfMonth, endOfMonth);
-
-        // Thêm dữ liệu vào model
-        model.addAttribute("totalRevenue", totalRevenue);
-        model.addAttribute("startDate", startOfMonth);
-        model.addAttribute("endDate", endOfMonth);
-
-
-        return "admin-finaces"; // Trả về view
-    }
-
-    // Lịch sử năm
-    @GetMapping("/admin/finaces/year")
-    public String findYearlyRevenue(Model model) {
-        // Lấy ngày bắt đầu và ngày kết thúc của năm hiện tại
-        LocalDate startOfYear = getStartOfCurrentYear();
-        LocalDate endOfYear = getEndOfCurrentYear();
-
-        // Lấy danh sách các đơn đặt phòng trong năm này
-        List<Booking> bookings = bookingRepository.findByCheckInDateBetween(startOfYear, endOfYear);
-        double totalRevenue = bookings.stream()
-                .mapToDouble(Booking::getPrice)
-                .sum();
-
-        // Thêm dữ liệu vào model
-        model.addAttribute("totalRevenue", totalRevenue);
-        model.addAttribute("startDate", startOfYear);
-        model.addAttribute("endDate", endOfYear);
-        model.addAttribute("bookings", bookings);
-
-        return "admin-finaces"; // Trả về view
     }
 }

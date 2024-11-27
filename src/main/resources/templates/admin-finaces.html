@@ -38,14 +38,14 @@
 </head>
 <body>
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Thống kê doanh thu</h1>
+    <h1 class="text-center mb-4">Thống kê doanh thu phòng</h1>
     <a href="/" class="btn btn-primary mb-3">Quay về trang chủ</a>
     <div class="row">
         <!-- Tổng doanh thu -->
         <div class="col-md-4">
             <div class="dashboard-item" style="border-color: #0e9347;">
                 <div class="dashboard-content">
-                    <p class="amount" style="color: #0e9347;" >Tổng: <span th:text="${totalRevenue}"></span> TND</p>
+                    <p class="amount" style="color: #0e9347;" >Tổng: <span th:text="${totalRevenue}"></span> TVND</p>
                     <p>Thời gian: <span th:text="${startDate} + ' - ' + ${endDate}"></span></p>
                 </div>
                 <a href="/finaces/week" class="btn btn-primary mb-3" style="margin: 10px 0; text-align: right;">Tuần</a>
@@ -55,7 +55,7 @@
         <div class="col-md-4">
             <div class="dashboard-item" style="border-color: #c97629;">
                 <div class="dashboard-content">
-                    <p class="amount" style="color: #c97629;">Tổng: <span th:text="${totalRevenuemonth}"></span> TND</p>
+                    <p class="amount" style="color: #c97629;">Tổng: <span th:text="${totalRevenuemonth}"></span> TVND</p>
                     <p>Thời gian: <span th:text="${startOfMonth} + ' - ' + ${endOfMonth}"></span></p>
                 </div>
                 <a href="/finaces/month" class="btn btn-primary mb-3" style="margin: 10px 0; text-align: right;">Tháng</a>
@@ -65,7 +65,7 @@
         <div class="col-md-4">
             <div class="dashboard-item" style="border-color: #3d8ac7;">
                 <div class="dashboard-content">
-                    <p class="amount" style="color: #3d8ac7;">Tổng: <span th:text="${totalRevenueyear}"></span> TND</p>
+                    <p class="amount" style="color: #3d8ac7;">Tổng: <span th:text="${totalRevenueyear}"></span> TVND</p>
                     <p>Thời gian: <span th:text="${startOfYear} + ' - ' + ${endOfYear}"></span></p>
                 </div>
                 <a href="/finaces/year" class="btn btn-primary mb-3" style="margin: 10px 0; text-align: right;">Năm</a>
