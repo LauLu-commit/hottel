@@ -18,5 +18,4 @@ public class Booking {
     private int numberOfGuests; // Số lượng khách
     private double price;
     // Các getter và setter
-
 }

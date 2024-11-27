@@ -12,11 +12,12 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     List<Booking> findByUsername(String username);
     long countByRoomType(String roomType);  // Cập nhật với kiểu String
 
-    List<Booking> findByCheckInDate(LocalDate date);
-    //cập theo tháng
-    @Query("SELECT b FROM Booking b WHERE MONTH(b.checkInDate) = :month")
-    List<Booking> findBookingsByMonth(@Param("month") int month);
     // Tìm các đơn đặt phòng theo khoảng thời gian
     List<Booking> findByCheckInDateBetween(LocalDate startDate, LocalDate endDate);
+
+    // Phương thức tính tổng doanh thu trong một khoảng thời gian (custom query)
+    @Query("SELECT SUM(b.price) FROM Booking b WHERE b.checkInDate BETWEEN :startDate AND :endDate")
+    double calculateTotalRevenue(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
 }
 

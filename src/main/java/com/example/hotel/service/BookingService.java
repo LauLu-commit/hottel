@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BookingService {
@@ -42,8 +44,13 @@ public class BookingService {
     public long countRoomsByType(String roomType) {
         return bookingRepository.countByRoomType(roomType); // Cập nhật với kiểu String
     }
-    //để lấy danh sách đơn hàng
-    public List<Booking> getBookingsByMonth(int month) {
-        return bookingRepository.findBookingsByMonth(month);
+    //tính tổng boking theo khoang thoi gian
+    public double calculateTotalRevenue(LocalDate startDate, LocalDate endDate) {
+        List<Booking> bookings = bookingRepository.findByCheckInDateBetween(startDate, endDate);
+
+        // Tính tổng giá từ các booking
+        return bookings.stream()
+                .mapToDouble(Booking::getPrice) // Lấy giá từ từng Booking
+                .sum();
     }
 }
