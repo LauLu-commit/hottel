@@ -17,7 +17,8 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     // Phương thức tính tổng doanh thu trong một khoảng thời gian (custom query)
     @Query("SELECT SUM(b.price) FROM Booking b WHERE b.checkInDate BETWEEN :startDate AND :endDate")
-    double calculateTotalRevenue(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    Double calculateTotalRevenue(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
 
 }
 
